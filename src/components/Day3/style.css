@@ -1,0 +1,28 @@
+.card {
+  border-radius: 16px;
+  width: 20%;
+  border: 1px solid black;
+}
+
+.catalog {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tag {
+  border-radius: 16px;
+  padding: 16px;
+  background-color: orange;
+  color: white;
+  font-weight: 600;
+}
