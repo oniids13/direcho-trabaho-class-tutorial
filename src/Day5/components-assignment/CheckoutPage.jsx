@@ -35,38 +35,40 @@ export default function CheckoutPage() {
 
   // TODO: Create a function that updates quantity of a specific product by its ID.
   //       This should either increase or decrease the quantity (but never go below 0 or above 10).
-
   const updateProductQuantity = (id, quantity) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product.id === id
-          ? {
-              ...product,
-              quantity,
-            }
-          : product
-      )
+    // Create updated products list first
+    const updatedProducts = products.map((product) =>
+      product.id === id
+        ? {
+            ...product,
+            quantity,
+          }
+        : product
     );
+
+    // Update state with new products list
+    setProducts(updatedProducts);
+
+    // Calculate total based on the updated products list
+    setTotal(calculateTotal(updatedProducts));
   };
 
   // TODO: Calculate total amount based on products with quantity > 0.
   //       If promoCode is exactly 'MAYTHE4THBWU', apply a 50% discount.
-
-  const calculateTotal = () => {
-    const total = products.reduce((acc, product) => {
+  const calculateTotal = (productsList) => {
+    const subtotal = productsList.reduce((acc, product) => {
       return acc + product.price * product.quantity;
     }, 0);
 
     if (promoCode === "MAYTHE4THBWU") {
-      return total * 0.5;
+      return subtotal * 0.5;
     }
 
-    setTotal(total);
+    return subtotal;
   };
 
   // TODO: Determine if the checkout button should be disabled.
   //       It should be disabled if all quantities are 0.
-
   const isCheckoutDisabled = products.every(
     (product) => product.quantity === 0
   );
@@ -93,7 +95,7 @@ export default function CheckoutPage() {
       >
         {/* TODO: Replace $0.00 with computed total (with or without discount) */}
         <div>
-          <strong>Total: ${total}</strong>
+          <strong>Total: ${total.toFixed(2)}</strong>
         </div>
         {/* TODO: Replace false with logic to check if button should be disabled */}
         <CheckoutButton disabled={isCheckoutDisabled} />

@@ -1,18 +1,16 @@
-import React from "react";
 import ProductDetails from "./ProductDetails";
 import QuantitySelector from "./QuantitySelector";
 
 // Shows product details and its quantity selector
 export default function ProductCard({ product, onQuantityChange }) {
-  const [qty, setQty] = React.useState(product.quantity);
   const handleIncrease = () => {
-    setQty((prev) => prev + 1);
-    onQuantityChange(product.id, qty);
+    const newQty = product.quantity + 1;
+    onQuantityChange(product.id, newQty);
   };
 
   const handleDecrease = () => {
-    setQty((prev) => prev - 1);
-    onQuantityChange(product.id, qty);
+    const newQty = product.quantity - 1;
+    onQuantityChange(product.id, newQty);
   };
 
   return (
